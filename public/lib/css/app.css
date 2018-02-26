@@ -21,7 +21,16 @@ body {
     color: #000;
     display: inline-block;
     padding: 10px 15px;
+    position: relative;
 }
+.jumbotron h1:before { content: ""; position: absolute; top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid; right: -10px;
+    border-width: 47px 10px 0 0;
+    border-color: #ffffff transparent transparent transparent;}
+/*.jumbotron h1:after { content: ""; background: #fff; width: 2px; height: 100%; position: absolute; right: 0; top: 0; transform:rotate(20deg); }*/
+
 
 .navbar-brand, .navbar-nav>li>a {
     text-shadow: none!important;
@@ -37,6 +46,12 @@ a.navbar-brand {
     text-transform: uppercase;
     font-weight: 100;
     font-size: 17px;
+}
+
+h4 {
+    font-size: 1.3rem;
+    font-family: 'Roboto';
+    font-weight: 400;
 }
 
 footer {

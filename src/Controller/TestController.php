@@ -32,7 +32,7 @@ class TestController extends AbstractController {
     }
 
     /**
-     * @Route("/", name="app_contact")
+     * @Route("/contact", name="app_contact")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function contact(){
