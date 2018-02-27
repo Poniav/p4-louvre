@@ -32,6 +32,14 @@ class TestController extends AbstractController {
     }
 
     /**
+     * @Route("/tickets", name="app_tickets")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function tickets(){
+        return $this->render('pages/tickets.html.twig');
+    }
+
+    /**
      * @Route("/contact", name="app_contact")
      * @return \Symfony\Component\HttpFoundation\Response
      */
