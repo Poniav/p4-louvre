@@ -30,9 +30,10 @@ class ContactType extends AbstractType
                     )))
             ))
             ->add('email', EmailType::class, array(
-                'label' => 'Email',
+                'label' => 'Adresse email',
                 'attr' => array(
-                    'class' => 'col-4'
+                    'class' => 'col-md-8',
+                    'placeholder' => 'contact@email.com'
                 ),
                 'constraints'     => array(
                     new Assert\NotBlank(array(
@@ -46,7 +47,7 @@ class ContactType extends AbstractType
             ))
             ->add('subject', ChoiceType::class, array(
                 'label' => 'Sujet',
-                'placeholder' => '-',
+                'placeholder' => 'Choisir...',
                 'invalid_message' => 'Veuillez selectionner un sujet.',
                 'attr' => array(
                     'class' => 'col-4'
@@ -64,7 +65,8 @@ class ContactType extends AbstractType
             ->add('content', TextareaType::class, array(
                 'label' => 'Message',
                 'attr' => array(
-                    'class' => 'col-4'
+                    'class' => 'col-12',
+                    'rows' => 5
                 ),
                 'constraints' => array(
                     new Assert\NotBlank(array(
