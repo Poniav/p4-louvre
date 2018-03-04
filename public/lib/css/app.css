@@ -6,8 +6,6 @@ body {
     background-image: url("/lib/img/louvre3.jpg");
     background-position: center center;
     background-size: cover;
-    /*background-position: -25px -50px;*/
-    /*background-position: center center;*/
     position: relative;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -15,6 +13,7 @@ body {
     border-radius: unset;
 }
 
+/* Jumbotron moving with mouseover */
 /*.jumbotron {
     background-image: url("/lib/img/louvre3.jpg");
     background-position: -200px -190px;
@@ -28,17 +27,6 @@ body {
     margin-top: 50px;
     border-radius: unset;
 }*/
-
-.photo {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-image: url("/lib/img/louvre3.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    transition: transform .5s ease-out;
-}
 
 .jumbotron h1 {
     font-family: 'Roboto', sans-serif;
@@ -56,8 +44,8 @@ body {
     height: 0;
     border-style: solid; right: -10px;
     border-width: 47px 10px 0 0;
-    border-color: #ffffff transparent transparent transparent;}
-/*.jumbotron h1:after { content: ""; background: #fff; width: 2px; height: 100%; position: absolute; right: 0; top: 0; transform:rotate(20deg); }*/
+    border-color: #ffffff transparent transparent transparent;
+}
 
 
 .navbar-brand, .navbar-nav>li>a {
