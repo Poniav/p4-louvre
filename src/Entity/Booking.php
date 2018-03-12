@@ -10,7 +10,7 @@ use App\Validator as PCAssert;
 /**
  * @ORM\Table(name="booking")
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
- * @PCAssert\DateChecker()
+ * @PCAssert\DateChecker(groups={"Booking"})
  */
 class Booking
 {
@@ -25,7 +25,7 @@ class Booking
      * @var string $firstname
      *
      * @ORM\Column(name="co_firstname", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="Veuillez ajouter votre prénom.")
+     * @Assert\NotBlank(message="Veuillez ajouter votre prénom.", groups={"Booking"})
      */
     private $firstname;
 
@@ -33,7 +33,7 @@ class Booking
      * @var string $lastname
      *
      * @ORM\Column(name="co_lastname", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="Veuillez ajouter votre nom.")
+     * @Assert\NotBlank(message="Veuillez ajouter votre nom.", groups={"Booking"})
      */
     private $lastname;
 
@@ -41,10 +41,11 @@ class Booking
      * @var string $email
      *
      * @ORM\Column(name="co_email", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="Veuillez ajouter votre adresse email.")
+     * @Assert\NotBlank(message="Veuillez ajouter votre adresse email.", groups={"Booking"})
      * @Assert\Email(
      *      message = "'{{ value }}' n'est pas une adresse email valide.",
-     *      checkMX = true
+     *      checkMX = true,
+     *      groups={"Booking"}
      * )
      */
     private $email;
@@ -53,9 +54,10 @@ class Booking
      * @var \DateTime $date
      *
      * @ORM\Column(name="co_date", type="datetime", nullable=false)
-     * @Assert\NotBlank(message="Veuillez ajouter une date de réservation.")
+     * @Assert\NotBlank(message="Veuillez ajouter une date de réservation.", groups={"Booking"})
      * @Assert\DateTime(
-     *     message="Veuillez ajouter une date de réservation valide."
+     *     message="Veuillez ajouter une date de réservation valide.",
+     *     groups={"Booking"}
      * )
      */
     private $date;
@@ -70,16 +72,16 @@ class Booking
     /**
      * @var int $number
      * @ORM\Column(name="co_number", type="integer", nullable=false)
-     * @Assert\NotBlank(message="Veuillez choisir le nombre de billets.")
+     * @Assert\NotBlank(message="Veuillez choisir le nombre de billets.", groups={"Booking"})
      */
     private $number;
 
     /**
-     * @var object $billets
+     * @var object $tickets
      * @ORM\OneToMany (targetEntity="Tickets", mappedBy="booking", cascade={"persist"})
      * @Assert\Valid()
      */
-    protected $billets;
+    private $tickets;
 
     /**
      * @var $total
@@ -94,7 +96,7 @@ class Booking
     public function __construct()
     {
         $this->date = new \DateTime;
-        $this->billets = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
     }
 
     /**
@@ -124,7 +126,7 @@ class Booking
     /**
      * @param string $firstname
      */
-    public function setFirstname(string $firstname): void
+    public function setFirstname($firstname): void
     {
         $this->firstname = $firstname;
     }
@@ -140,7 +142,7 @@ class Booking
     /**
      * @param string $lastname
      */
-    public function setLastname(string $lastname): void
+    public function setLastname($lastname): void
     {
         $this->lastname = $lastname;
     }
@@ -156,7 +158,7 @@ class Booking
     /**
      * @param string $email
      */
-    public function setEmail(string $email): void
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
@@ -197,7 +199,7 @@ class Booking
     /**
      * @param bool $type
      */
-    public function setType(bool $type): void
+    public function setType($type): void
     {
         $this->type = $type;
     }
@@ -213,7 +215,7 @@ class Booking
     /**
      * @param int $number
      */
-    public function setNumber(int $number): void
+    public function setNumber($number): void
     {
         $this->number = $number;
     }
@@ -221,22 +223,25 @@ class Booking
     /**
      * @return object
      */
-    public function getBillets()
+    public function getTickets()
     {
-        return $this->billets;
-    }
-
-    public function setArray()
-    {
-        $this->billets = [];
+        return $this->tickets;
     }
 
     /**
-     * @param Tickets $billets
+     * @param Tickets $tickets
      */
-    public function setBillets(Tickets $billets)
+    public function removeTicket(Tickets $tickets)
     {
-        $this->billets[] = $billets;
+        $this->tickets->removeElement($tickets);
+    }
+
+    /**
+     * @param Tickets $tickets
+     */
+    public function addTicket(Tickets $tickets)
+    {
+        $this->tickets[] = $tickets;
     }
 
     /**
