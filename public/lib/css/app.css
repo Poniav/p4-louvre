@@ -112,3 +112,18 @@ footer a:hover {
 #back-to-top.show {
     opacity: 1;
 }
+
+h4.title-ticket {
+    background: #f5f5f5;
+    padding: 5px;
+    color: #1e1410;
+    font-weight: 400;
+    font-size: 1.1em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+a.button-back {
+    text-decoration-line: none;
+}
