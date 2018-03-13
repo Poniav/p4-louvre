@@ -36,7 +36,7 @@ class Tickets
 
 
     /**
-     * @var Booking $commande
+     * @var Booking $booking
      *
      * @ORM\ManyToOne(targetEntity="Booking", inversedBy="tickets")
      * @ORM\JoinColumn(nullable=false)
@@ -127,7 +127,7 @@ class Tickets
     /**
      * @param Booking $booking
      */
-    public function setBooking(Booking $booking): void
+    public function setBooking(Booking $booking = null): void
     {
         $this->booking = $booking;
     }
@@ -162,6 +162,14 @@ class Tickets
     public function setBirth($birth): void
     {
         $this->birth = $birth;
+    }
+
+    /**
+     * @return \DateInterval|false
+     */
+    public function getAge()
+    {
+        return date_diff($this->getBirth(), date_create('NOW'))->y;
     }
 
     /**
