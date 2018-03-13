@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Booking;
-use App\Form\TicketType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
