@@ -5,12 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Validator as PCAssert;
+use App\Validator\Infos as CVIAssert;
 
 /**
  * @ORM\Table(name="booking")
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
- * @PCAssert\DateChecker(groups={"Booking"})
+ * @CVIAssert\TypeTicket(message="Billet 'Journée' seulement possible avant 14h.", groups={"Booking"})
+ * @CVIAssert\MaxTicket(message="Le nombre de 1000 billets maximum à été atteint pour aujourd'hui. Veuillez choisir une autre date. ", groups={"Booking"})
  */
 class Booking
 {
@@ -59,6 +60,10 @@ class Booking
      *     message="Veuillez ajouter une date de réservation valide.",
      *     groups={"Booking"}
      * )
+     * @CVIAssert\CloseDay(message="Le musée est fermé le Mardi et le Dimanche.", groups={"Booking"})
+     * @CVIAssert\DayOff(message="Réservation impossible lors des jours fériés.", groups={"Booking"})
+     * @CVIAssert\PastDay(message="Vous ne pouvez pas réserver pour les jours passés.", groups={"Booking"})
+     * @CVIAssert\CloseHour(message="Désolé, le musée est fermé après 21h.", groups={"Booking"})
      */
     private $date;
 
@@ -175,7 +180,7 @@ class Booking
      * @param string $format
      * @return string
      */
-    public function getDates(string $format)
+    public function getDateFormat(string $format)
     {
         return $this->getDate()->format($format);
     }
@@ -193,7 +198,7 @@ class Booking
      */
     public function isType()
     {
-        return $this->type;
+        return ($this->type == 1) ? true : false;
     }
 
     /**
@@ -221,7 +226,7 @@ class Booking
     }
 
     /**
-     * @return object
+     * @return ArrayCollection | Tickets[]
      */
     public function getTickets()
     {
