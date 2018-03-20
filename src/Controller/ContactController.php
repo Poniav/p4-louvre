@@ -32,7 +32,6 @@ class ContactController extends Controller {
 
             $this->addFlash('success', 'Votre message a bien été envoyé. Vous recevrez une réponse sous un délai de 24 heures.');
 
-            return $this->redirectToRoute('app_confirmation');
         }
         return $this->render('pages/contact.html.twig', [
             'contact' => $form->createView(),

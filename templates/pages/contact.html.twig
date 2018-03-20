@@ -15,6 +15,11 @@
             <div class="col-md-8 order-md-1">
                 <h4>Formulaire de contact</h4>
                 <hr class="mb-4">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
                 {#{{ form_start(contact) }}#}
                 {# debug form error #}
                 {{ form_start(contact, {'attr': {'novalidate': 'novalidate'}}) }}
