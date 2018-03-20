@@ -88,6 +88,13 @@ class Booking
      */
     private $tickets;
 
+
+    /**
+     * @var string $code
+     * @ORM\Column(name="co_code", type="string", length=50, nullable=false)
+     */
+    private $code;
+
     /**
      * @var $total
      *
@@ -258,11 +265,34 @@ class Booking
     }
 
     /**
-     * @param mixed $total
+     * @param Booking $booking
      */
-    public function setTotal($total): void
+    public function setTotal(Booking $booking): void
     {
-        $this->total = $total;
+        foreach ($booking->getTickets() as $ticket)
+        {
+            $total[] = $ticket->getPrice();
+        }
+        /** @var Booking[] $total */
+        $this->total = array_sum($total);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * Set Random Code Reservation
+     */
+    public function setCode()
+    {
+        $alph = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $code = substr(str_shuffle($alph), 0, rand(5,25));
+        $this->code = $code;
     }
 
 
