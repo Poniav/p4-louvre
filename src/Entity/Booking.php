@@ -241,6 +241,14 @@ class Booking
     }
 
     /**
+     *
+     */
+    public function removeTickets()
+    {
+        $this->tickets = new ArrayCollection();
+    }
+
+    /**
      * @param Tickets $tickets
      */
     public function removeTicket(Tickets $tickets)
