@@ -69,5 +69,8 @@
 
 {% block javascripts %}
             <script src="https://js.stripe.com/v3/"></script>
+            <script>
+                var stripekey = '{{ stripepukey }}';
+            </script>
             <script type="text/javascript" src="{{ asset('/lib/js/stripe.js') }}"></script>
 {% endblock %}

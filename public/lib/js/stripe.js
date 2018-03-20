@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var stripe = Stripe('pk_test_XpyiFjSTPrGCPFo0TLN1LfOU');
+    var stripe = Stripe(stripekey);
 
     var elements = stripe.elements();
 
