@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Tickets;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
@@ -28,6 +29,9 @@ class TicketType extends AbstractType implements FormTypeInterface
                 'html5' => 'false',
                 'format' => 'dd/MM/yyyy',
                 'attr' => ['class' => 'datepicker-tickets']
+            ])
+            ->add('country', CountryType::class,[
+                'label' => 'Quel est votre pays ?'
             ])
             ->add('discount', CheckboxType::class,[
                 'label' => 'Avez-vous une réduction ?'
