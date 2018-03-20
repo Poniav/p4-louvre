@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(function () {
 
     var a = '#back-to-top';
 
@@ -32,7 +32,7 @@ $(document).ready(function () {
         monthsShort: ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jui", "Aoû", "Sep", "Oct", "Nov", "Déc"],
         format: "dd/mm/yyyy",
         titleFormat: "MM yyyy",
-        weekStart: 0,
+        weekStart: 0
     };
 
     /*$('.datepicker').datepicker({
@@ -46,31 +46,63 @@ $(document).ready(function () {
     });*/
 
     $('.datepicker').datepicker({
-        format: "dd/mm/yyyy",
-        startDate: "new Date()",
+        format: "dd/mm/yyyy", // Format
+        startDate: "new Date()", // Start date of calendar
         language: "fr",
         multidate: false,
         keyboardNavigation: false,
-        // daysOfWeekDisabled: "0,2",
+        // daysOfWeekDisabled: "0,2",  // Disable Sunday and Tuesday
         autoclose: true,
         todayHighlight: true,
-        // datesDisabled: ['01/05/2018', '01/11/2018', '25/12/2018'],
-        toggleActive: true,
-        defaultViewDate: { year: 1977, month: 04, day: 25 }
+        // datesDisabled: ['01/05/2018', '01/11/2018', '25/12/2018'],  // Disable Public Holidays
+        toggleActive: true
+        // defaultViewDate: { year: 1977, month: 04, day: 25 }
     });
 
-    $('.datepicker-tickets').datepicker({
+    var datepickercl = '.datepicker-tickets';
+
+    $(datepickercl).datepicker({
         format: "dd/mm/yyyy",
+        // endDate: "new Date()", //
         language: "fr",
         multidate: false,
         keyboardNavigation: false,
         autoclose: true,
-        todayHighlight: true,
         toggleActive: true,
         startView: 'century'
     });
 
+    function stringToDate(_date,_format,_delimiter)
+    {
+        var formatLowerCase = _format.toLowerCase();
+        var formatItems = formatLowerCase.split(_delimiter);
+        var dateItems = _date.split(_delimiter);
+        var monthIndex = formatItems.indexOf("mm");
+        var dayIndex = formatItems.indexOf("dd");
+        var yearIndex = formatItems.indexOf("yyyy");
+        var month = parseInt(dateItems[monthIndex]);
+        month-=1;
+        var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
+        return formatedDate;
+    }
 
+
+    $(datepickercl).on("change", function () {
+
+        var myDates = stringToDate($(this).val(), 'mm/dd/yyyy', '/'); // convert the input string to date
+        var nDate = new Date(); // init the new date
+
+        var elem = $(this)["0"].name; // get class name
+        var num = parseInt(elem.replace(/[^0-9]/g,'')); // get number digit in class name and increase of 1
+        var priceTicket = $("li[class*='ticket-']"); // get all tickets
+
+        var test = priceTicket[num].childNodes[3].innerHTML = "35€";
+        console.log(test);
+        console.log(priceTicket);
+        console.log(myDates);
+        console.log(nDate);
+
+    });
 
 });
 

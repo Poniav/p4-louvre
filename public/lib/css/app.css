@@ -115,7 +115,7 @@ footer a:hover {
 
 h4.title-ticket {
     background: #f5f5f5;
-    padding: 5px;
+    padding: 10px;
     color: #1e1410;
     font-weight: 400;
     font-size: 1.1em;
@@ -126,4 +126,97 @@ h4.title-ticket {
 
 a.button-back {
     text-decoration-line: none;
+}
+
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+    background-color: white;
+    height: 40px;
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+div#card-errors {
+    color: #eb1c26;
+    margin: 5px;
+}
+
+form#payment-form label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    color: #495c69;
+    font-size: 0.9em;
+}
+
+.table-checkout {
+    padding: 20px 30px 30px;
+    border-radius: 4px;
+    border: 1px solid #e8e8fb;
+    background: #f8fbfd;
+    margin-bottom: 0;
+    font-size: 0.96em;
+}
+
+.form-checkout {
+    padding: 20px 30px 30px;
+    border-radius: 4px;
+    border: 1px solid #e8e8fb;
+    background: #f8fbfd;
+}
+
+.title-checkout {
+    margin: 15px 0;
+    color: #32325d;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+tfoot {
+    background: #fff;
+}
+
+.form-group.foottable {
+    padding: .75rem;
+    vertical-align: top;
+    border: 1px #dee2e6 solid;
+    border-top: none;
+}
+
+.foottable strong {
+    font-weight: 500;
+    font-size: 0.90em;
+}
+
+.foottable.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(244, 246, 247);
+}
+
+.foottable span {
+    margin-left: 20px;
 }
