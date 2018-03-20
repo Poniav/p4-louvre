@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Entity\Booking;
+
 class MailerManager {
 
     /**
@@ -31,6 +33,23 @@ class MailerManager {
     }
 
     /**
+     * Send receipt booking confirmation
+     *
+     * @param Booking $booking
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function receiptSend(Booking $booking)
+    {
+        $subject = 'Musée du Louvre - Confirmation';
+        $from = MailerManager::mail;
+        $to = $booking->getEmail();
+        $body = $this->templating->render('mails/receipt.html.twig', ['booking' => $booking]);
+        $this->send($subject, $from, $to, $body);
+    }
+
+    /**
      * Send Contact from Contact Form
      *
      * @param array $data
@@ -49,7 +68,6 @@ class MailerManager {
 
     /**
      * Function Send Mail
-     *
      * @param string $subject
      * @param string $from
      * @param string $to
@@ -57,6 +75,8 @@ class MailerManager {
      */
     private function send(string $subject, string $from, string $to, string $body)
     {
+        /** @var \Swift_Mime_SimpleMessage $mail */
+
         $mail = $this->mailer->createMessage();
 
         $mail->setSubject($subject)
