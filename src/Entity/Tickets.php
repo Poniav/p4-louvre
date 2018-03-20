@@ -4,12 +4,24 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Tickets as CVTAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TicketsRepository")
  */
 class Tickets
 {
+
+    /**
+     * @const int
+     */
+    public const fullday = 10;
+
+    /**
+     * @const int
+     */
+    public const halfday = 5;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -58,8 +70,19 @@ class Tickets
      * @Assert\DateTime(
      *     message="Veuillez ajouter la date de naissance du visiteur."
      * )
+     * @CVTAssert\NextDay(message="Vous ne pouvez choisir qu'une date pour les jours passés.")
      */
     private $birth;
+
+
+    /**
+     * @var string $country
+     *
+     * @ORM\Column(name="co_country", type="string", nullable=false)
+     * @Assert\NotBlank(message="Veuillez ajouter votre pays.")
+     * @Assert\Country(message="Ce n'est pas un code pays valide.")
+     */
+    private $country;
 
     /**
      * @var string
@@ -165,11 +188,12 @@ class Tickets
     }
 
     /**
-     * @return \DateInterval|false
+     * @param \DateTime $date
+     * @return int
      */
-    public function getAge()
+    public function getAge(\DateTime $date)
     {
-        return date_diff($this->getBirth(), date_create('NOW'))->y;
+        return date_diff($this->getBirth(), $date)->y;
     }
 
     /**
@@ -186,6 +210,22 @@ class Tickets
     public function setPrice(string $price): void
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param string $country
+     */
+    public function setCountry(string $country): void
+    {
+        $this->country = $country;
     }
 
 
