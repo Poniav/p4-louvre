@@ -4,8 +4,15 @@ namespace App\Services;
 
 use App\Entity\Tickets;
 use App\Entity\Booking;
+use Doctrine\DBAL\DBALException;
+use Doctrine\ORM\EntityManagerInterface;
+use Exception;
+use Stripe\Charge;
+use Stripe\Stripe;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class OrderManager {
 
@@ -15,24 +22,47 @@ class OrderManager {
     private $session;
 
     /**
-     * @var integer
+     * @var FlashBagInterface
      */
-    private $price;
+    private $flashbag;
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $route;
+
+    /**
+     * @var string $stripekey
+     */
+    private $stripekey;
 
     /**
      * OrderManager constructor.
      * @param SessionInterface $session
+     * @param FlashBagInterface $flashBag
+     * @param UrlGeneratorInterface $route
+     * @param EntityManagerInterface $em
+     * @param $stripekey
      */
-    public function __construct(SessionInterface $session)
+    public function __construct(SessionInterface $session, FlashBagInterface $flashBag, UrlGeneratorInterface $route, EntityManagerInterface $em, $stripekey)
     {
         $this->session = $session;
+        $this->stripekey = $stripekey;
+        $this->flashbag = $flashBag;
+        $this->em = $em;
+        $this->route = $route;
     }
 
     /**
      * Init Booking with new instance or get the current booking from session
      * @return Booking
      */
-    public function booking() : Booking
+    public function initBooking() : Booking
     {
 
         $booking = new Booking();
@@ -40,6 +70,7 @@ class OrderManager {
         if($this->session->get('booking'))
         {
             $booking = $this->session->get('booking');
+            $booking->removeTickets();
         }
 
         return $booking;
@@ -47,25 +78,12 @@ class OrderManager {
     }
 
     /**
-     * @param Booking $booking
-     */
-    public function ticketSession(Booking $booking)
-    {
-        if($booking->getTickets() !== null)
-        {
-            foreach ($booking->getTickets() as $ticket)
-            {
-                $booking->removeTicket($ticket);
-            }
-        }
-    }
-
-    /**
      * Init Tickets with new instance of number tickets
+     * @param Booking $booking
+     * @return Booking
      */
-    public function tickets()
+    public function initTickets(Booking $booking)
     {
-        $booking = $this->getSession('booking');
 
         if(count($booking->getTickets()) == 0)
         {
@@ -87,32 +105,33 @@ class OrderManager {
          foreach ($booking->getTickets() as $ticket)
          {
             // half day
-             if($booking->isType() == false)
+             if(!$booking->isType())
              {
-                 $this->price = $this->getPriceRange($ticket->getAge()) / 2;
+                 $price = $this->getPriceRange($ticket->getAge($booking->getDate())) / 2;
 
-                 if($ticket->getAge() > 17 && $ticket->isDiscount() == true)
+                 if($ticket->isDiscount())
                  {
-                     $this->price = 5;
+                     $price = $ticket::halfday;
                  }
 
              }
 
-             if($booking->isType() == true)
+             if($booking->isType())
              {
-                 $this->price = $this->getPriceRange($ticket->getAge());
+                 $price = $this->getPriceRange($ticket->getAge($booking->getDate()));
 
-                 if($ticket->getAge() > 17 && $ticket->isDiscount() == true)
+                 if($ticket->isDiscount())
                  {
-                     $this->price = 10;
+                     $price = $ticket::fullday;
                  }
              }
 
-           $ticket->setPrice($this->price);
-//             $ticket->setBooking($booking);
+             /** @var int $price */
+             $ticket->setPrice($price);
+             $ticket->setBooking($booking);
          }
-
-         $booking->setTotal(25.25);
+         $booking->setCode();
+         $booking->setTotal($booking);
     }
 
     /**
@@ -141,9 +160,74 @@ class OrderManager {
 
     /**
      * @param Booking $booking
+     * @param $token
+     * @return boolean
+     */
+    public function payment(Booking $booking, $token) : bool
+    {
+        Stripe::setApiKey($this->stripekey);
+
+        try {
+            Charge::create(array(
+                "amount" => $booking->getTotal() * 100,
+                "currency" => "eur",
+                "source" => $token,
+                "description" => "Musée du Louvre - Réservation"
+            ));
+            return true;
+        } catch (\Stripe\Error\Card $e) {
+            $this->flashbag->add('error', 'Votre carte a été refusée.');
+            return false;
+        } catch (\Stripe\Error\RateLimit $e) {
+            $this->flashbag->add('error', 'Le serveur de gestion de paiement est saturé. Veuillez réessayer dans quelques instants.');
+            return false;
+        } catch (\Stripe\Error\InvalidRequest $e) {
+            $this->flashbag->add('error', 'Erreur dans la transmission des informations au serveur de paiement.');
+            return false;
+        } catch (\Stripe\Error\Authentication $e) {
+            $this->flashbag->add('error', 'Authentification avec le serveur de paiement impossible.');
+            return false;
+        } catch (\Stripe\Error\ApiConnection $e) {
+            $this->flashbag->add('error', 'Communication avec le serveur de paiement Stripe impossible.');
+            return false;
+        } catch (\Stripe\Error\Base $e) {
+            $body = $e->getJsonBody();
+            $err  = $body['error'];
+            $this->flashbag->add('error', $err['message']);
+            return false;
+        } catch (Exception $e) {
+            $this->flashbag->add('error', 'Une erreur est survenue dans le traitement de votre paiement.');
+            return false;
+        }
+    }
+
+    /**
+     * @param Booking $booking
+     * @param MailerManager $mailerManager
+     * @return bool
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
+     */
+    public function receipt(Booking $booking, MailerManager $mailerManager)
+    {
+        try {
+            $this->em->persist($booking);
+            $this->em->flush();
+            $mailerManager->receiptSend($booking);
+            return true;
+        } catch (DBALException $e)
+        {
+            $this->flashbag->add('error', 'Une erreur est survenue dans le traitement des informations.');
+        }
+
+    }
+
+    /**
+     * @param Booking $booking
      * @return mixed
      */
-    public function setSession(Booking $booking)
+    public function setBooking(Booking $booking)
     {
         return $this->session->set('booking', $booking);
     }
@@ -152,7 +236,7 @@ class OrderManager {
      * @param string $session
      * @return mixed
      */
-    public function getSession(string $session)
+    public function getBooking(string $session)
     {
         return $this->session->get($session);
     }
@@ -162,10 +246,10 @@ class OrderManager {
      */
     public function bookingNotFound($booking)
     {
-        if($booking == null)
-        {
+        if(!$booking)
+
             throw new NotFoundHttpException('Désolé mais vous n\'êtes pas autorisé à accéder à cette page');
-        }
+
     }
 
 
