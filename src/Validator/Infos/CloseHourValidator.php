@@ -32,7 +32,7 @@ class CloseHourValidator extends ConstraintValidator
 
         if($date->format('d/m/Y') == $this->date->format('d/m/Y'))
         {
-            if($date->format('H') >= $constraint::closehour)
+            if($date->format('H') >= $constraint::CLOSEHOUR)
             {
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();

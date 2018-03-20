@@ -36,7 +36,7 @@ class MaxTicketValidator extends ConstraintValidator
         /* @var MaxTicket $constraint  */
         $result = $this->getTotalTickets($booking->getDate());
 
-        if($result + $booking->getNumber() >= $constraint::maxTicket)
+        if($result + $booking->getNumber() >= $constraint::MAXTICKET)
         {
                 $this->context->buildViolation($constraint->message)
                     ->atPath('number')

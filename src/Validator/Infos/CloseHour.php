@@ -17,7 +17,7 @@ class CloseHour extends Constraint
     /**
      * @Const int
      */
-    const closehour = 21;
+    const CLOSEHOUR = 21;
 
     /**
      * @return string

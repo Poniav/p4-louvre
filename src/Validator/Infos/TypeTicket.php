@@ -17,7 +17,7 @@ class TypeTicket extends Constraint
     /**
      * @const int
      */
-    const limitHour = 14;
+    const LIMITHOUR = 14;
 
     /**
      * @return string

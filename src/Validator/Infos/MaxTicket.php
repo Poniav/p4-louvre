@@ -18,7 +18,7 @@ class MaxTicket extends Constraint
     /**
      * @const int
      */
-    const maxTicket = 1000;
+    const MAXTICKET = 1000;
 
     /**
      * @return string

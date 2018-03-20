@@ -32,7 +32,7 @@ class TypeTicketValidator extends ConstraintValidator
 
         if($booking->getDateFormat('d/m/Y') == $this->date->format('d/m/Y'))
         {
-            if($this->date->format('H') >= $constraint::limitHour && $booking->isType())
+            if($this->date->format('H') >= $constraint::LIMITHOUR && $booking->isType())
             {
                 $this->context->buildViolation($constraint->message)
                     ->atPath('type')
