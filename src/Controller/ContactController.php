@@ -38,18 +38,4 @@ class ContactController extends Controller {
         ]);
     }
 
-    /**
-     * @Route("/confirmation", name="app_confirmation")
-     * @param Session $session
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function confirmation(Session $session)
-    {
-        if($session->getFlashBag()->has('success') == null)
-        {
-              throw new NotFoundHttpException('La page est inexistante');
-        }
-
-        return $this->render('pages/confirmation.html.twig');
-    }
 }
