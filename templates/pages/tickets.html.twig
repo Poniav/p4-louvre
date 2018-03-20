@@ -14,7 +14,7 @@
             {% include 'parts/column.html.twig' %}
             <div class="col-md-8 order-md-1">
                 <h4>Vos billets</h4>
-                <hr class="mb-4">
+                <hr>
                 {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
                 {% for ticket in form.tickets %}
                     <h4 class="title-ticket mb-3">Billet {{ loop.index }}</h4>
@@ -33,6 +33,10 @@
                         {{ form_label(ticket.birth) }}
                         <span class="fi-bell"></span>
                         {{ form_widget(ticket.birth) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(ticket.country) }}
+                        {{ form_widget(ticket.country) }}
                     </div>
                 </div>
                     <div class="form-group row mb-4">
