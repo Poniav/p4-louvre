@@ -14,6 +14,9 @@
         <env name="APP_DEBUG" value="1" />
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="SHELL_VERBOSITY" value="-1" />
+        <env name="STRIPE_PUBLIC_KEY" value="fakeApiKey" force="true" />
+        <env name="STRIPE_KEY" value="fakeApiKey" force="true" />
+        <env name="DATABASE_URL" value="mysql://root:@localhost/billetterie" force="true" />
         <!-- define your env variables for the test env here -->
     </php>
 
@@ -28,6 +31,9 @@
             <directory>./src/</directory>
         </whitelist>
     </filter>
+    <logging>
+        <log type="coverage-text" target="php://stdout"/>
+    </logging>
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
