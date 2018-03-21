@@ -27,16 +27,30 @@ class BookingRepository extends ServiceEntityRepository
      * @param \DateTime $date
      * @return mixed
      */
-    public function findTicketsByDate(\DateTime $date)
+//    public function findTicketsByDate(\DateTime $date)
+//    {
+//        return $this->createQueryBuilder('c')
+//            ->leftJoin('c.tickets', 'tickets')
+//            ->addSelect('count(tickets)')
+//            ->where('c.date = :date')
+//            ->setParameter('date', $date)
+//            ->getQuery()
+//            ->getResult()
+//        ;
+//    }
+
+    /**
+     * @param \DateTime $date
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findNumberOfTicketsByDate(\DateTime $date)
     {
-        return $this->createQueryBuilder('c')
-            ->leftJoin('c.tickets', 'tickets')
-            ->addSelect('count(tickets)')
+        $qb = $this->createQueryBuilder('c')
+            ->select('SUM(c.number)')
             ->where('c.date = :date')
-            ->setParameter('date', $date)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->setParameter('date', $date);
+        return $qb->getQuery()->getSingleScalarResult();
     }
 
 }
