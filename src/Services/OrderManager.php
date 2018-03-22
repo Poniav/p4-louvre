@@ -111,7 +111,7 @@ class OrderManager {
 
                  if($ticket->isDiscount())
                  {
-                     $price = $ticket::halfday;
+                     $price = $ticket::HALFDAY;
                  }
 
              }
@@ -122,7 +122,7 @@ class OrderManager {
 
                  if($ticket->isDiscount())
                  {
-                     $price = $ticket::fullday;
+                     $price = $ticket::FULLDAY;
                  }
              }
 

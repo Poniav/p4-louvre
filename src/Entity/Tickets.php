@@ -15,12 +15,12 @@ class Tickets
     /**
      * @const int
      */
-    public const fullday = 10;
+    public const FULLDAY = 10;
 
     /**
      * @const int
      */
-    public const halfday = 5;
+    public const HALFDAY = 5;
 
     /**
      * @ORM\Id
