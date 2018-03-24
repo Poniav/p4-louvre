@@ -33,7 +33,7 @@ class OrderController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $orderManager->setBooking($booking);
+            $orderManager->setSession($booking);
 
             return $this->redirectToRoute('app_billet');
         }
@@ -50,7 +50,8 @@ class OrderController extends Controller {
      */
     public function billet(Request $request, OrderManager $orderManager)
     {
-        $bookingSession = $orderManager->getBooking('booking');
+        $bookingSession = $orderManager->getSession('booking');
+        $orderManager->bookingNotFound($bookingSession);
         $booking = $orderManager->initTickets($bookingSession);
 
         $form = $this->createForm(TicketCollectionType::class, $booking);
@@ -62,7 +63,7 @@ class OrderController extends Controller {
 
             $orderManager->setPriceTickets($booking);
 
-            $orderManager->setBooking($booking);
+            $orderManager->setSession($booking);
 
             return $this->redirectToRoute('app_paiement');
         }
@@ -77,7 +78,6 @@ class OrderController extends Controller {
      * @param Request $request
      * @param OrderManager $orderManager
      * @param MailerManager $mailerManager
-     * @param $stripepublickey
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Twig_Error_Loader
      * @throws \Twig_Error_Runtime
@@ -85,7 +85,7 @@ class OrderController extends Controller {
      */
     public function paiement(Request $request, OrderManager $orderManager, MailerManager $mailerManager)
     {
-        $booking = $orderManager->getBooking('booking');
+        $booking = $orderManager->getSession('booking');
         $orderManager->bookingNotFound($booking);
 
         if($request->isMethod('POST'))
@@ -97,6 +97,7 @@ class OrderController extends Controller {
             {
 
                 $result = $orderManager->receipt($booking, $mailerManager);
+                $this->get('session')->set('id', $booking->getId());
                 if($result)
                 {
                     return $this->redirectToRoute('app_confirmation', [
@@ -114,19 +115,16 @@ class OrderController extends Controller {
 
     /**
      * @Route("/confirmation/{id}", name="app_confirmation", requirements={"id"="\d+"})
-     * @param Session $session
+     * @param OrderManager $orderManager
      * @param $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function confirmation(Session $session, $id)
+    public function confirmation(orderManager $orderManager, $id)
     {
-        $session->clear();
 
-        $booking = $this->getDoctrine()->getRepository(Booking::class)->find($id);
-        if(!$booking)
-        {
-            throw new NotFoundHttpException('La page de confirmation n\'est pas accessible pour cette commande.');
-        }
+        $bookingId = $orderManager->confirmIdBySession($id);
+
+        $booking = $orderManager->findBookingById($bookingId);
 
         return $this->render('pages/confirmation.html.twig', [
                     'booking' => $booking

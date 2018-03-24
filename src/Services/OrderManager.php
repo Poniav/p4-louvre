@@ -227,7 +227,7 @@ class OrderManager {
      * @param Booking $booking
      * @return mixed
      */
-    public function setBooking(Booking $booking)
+    public function setSession(Booking $booking)
     {
         return $this->session->set('booking', $booking);
     }
@@ -236,7 +236,7 @@ class OrderManager {
      * @param string $session
      * @return mixed
      */
-    public function getBooking(string $session)
+    public function getSession(string $session)
     {
         return $this->session->get($session);
     }
@@ -250,6 +250,42 @@ class OrderManager {
 
             throw new NotFoundHttpException('Désolé mais vous n\'êtes pas autorisé à accéder à cette page');
 
+    }
+
+    /**
+     * @param string $id
+     * @return mixed
+     */
+    public function confirmIdBySession(string $id)
+    {
+        $bookingId = $this->session->get('id');
+
+        if($bookingId != $id)
+        {
+            throw new NotFoundHttpException('La page de confirmation n\'est pas accessible pour cette commande.');
+        }
+
+        return $bookingId;
+
+    }
+
+    /**
+     * @param string $id
+     * @return Booking|null|object
+     */
+    public function findBookingById(string $id)
+    {
+
+        $booking = $this->em->getRepository(Booking::class)->find($id);
+
+        if(!$booking)
+        {
+            throw new NotFoundHttpException('La page de confirmation n\'est pas accessible pour cette commande.');
+        }
+
+        $this->session->clear();
+
+        return $booking;
     }
 
 
