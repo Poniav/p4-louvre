@@ -1,0 +1,39 @@
+<div class="col-md-4 order-md-2 mb-4">
+    <h4 class="d-flex justify-content-between align-items-center mb-3">
+        <span class="text-muted">Informations</span>
+    </h4>
+    <ul class="list-group mb-3">
+        {% set booking = app.session.get('booking') %}
+        {% if booking %}
+                <li class="list-group-item d-flex justify-content-between lh-condensed">
+                    <div>
+                        <h6 class="my-0">Nom et Prénom</h6>
+                        <small class="text-muted"></small>
+                    </div>
+                    <span class="text-muted">{{ booking.lastname }} {{ booking.firstname }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed ticket">
+                    <div>
+                        <h6 class="my-0">Date de visite</h6>
+                        <small class="text-muted"></small>
+                    </div>
+                    <span class="text-muted">{{ booking.date|date("d/m/Y") }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between lh-condensed ticket">
+                    <div>
+                        <h6 class="my-0">Type de billets</h6>
+                        <small class="text-muted"></small>
+                    </div>
+                    <span class="text-muted">{% if booking.type == 1 %}Journée {% else %}Demi-Journée{% endif %}</span>
+                </li>
+            {% if app.request.get('_route') == 'app_paiement' %}
+                <div class="infos-block">
+                    <a href="/billet"><button type="button" class="btn btn-outline-warning btn-block btn-infos">{{ 'Modifier vos billets'|upper }}</button></a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </ul>
+    <div class="alert alert-warning" role="alert">
+        Tarif réduit pour les étudiants, les employés du musée, les membres du service du Ministère de la Culture ainsi que les militaires. Document justificatif à fournir pour l'entrée dans le musée.
+    </div>
+</div>

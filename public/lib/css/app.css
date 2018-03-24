@@ -220,3 +220,13 @@ tfoot {
 .foottable span {
     margin-left: 20px;
 }
+
+.infos-block a:hover {
+    text-decoration: none!important;
+}
+
+button.btn.btn-outline-warning.btn-block.btn-infos {
+    font-weight: 500;
+    font-size: 0.80em;
+    margin-top: 10px;
+}
