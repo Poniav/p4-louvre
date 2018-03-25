@@ -72,38 +72,6 @@ $(function () {
         startView: 'century'
     });
 
-    function stringToDate(_date,_format,_delimiter)
-    {
-        var formatLowerCase = _format.toLowerCase();
-        var formatItems = formatLowerCase.split(_delimiter);
-        var dateItems = _date.split(_delimiter);
-        var monthIndex = formatItems.indexOf("mm");
-        var dayIndex = formatItems.indexOf("dd");
-        var yearIndex = formatItems.indexOf("yyyy");
-        var month = parseInt(dateItems[monthIndex]);
-        month-=1;
-        var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
-        return formatedDate;
-    }
-
-
-    $(datepickercl).on("change", function () {
-
-        var myDates = stringToDate($(this).val(), 'mm/dd/yyyy', '/'); // convert the input string to date
-        var nDate = new Date(); // init the new date
-
-        var elem = $(this)["0"].name; // get class name
-        var num = parseInt(elem.replace(/[^0-9]/g,'')); // get number digit in class name and increase of 1
-        var priceTicket = $("li[class*='ticket-']"); // get all tickets
-
-        var test = priceTicket[num].childNodes[3].innerHTML = "35€";
-        console.log(test);
-        console.log(priceTicket);
-        console.log(myDates);
-        console.log(nDate);
-
-    });
-
 });
 
 
