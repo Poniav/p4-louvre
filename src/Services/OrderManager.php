@@ -247,8 +247,9 @@ class OrderManager {
     public function bookingNotFound($booking)
     {
         if(!$booking)
-
+        {
             throw new NotFoundHttpException('Désolé mais vous n\'êtes pas autorisé à accéder à cette page');
+        }
 
     }
 

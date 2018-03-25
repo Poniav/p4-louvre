@@ -34,7 +34,7 @@ class TicketType extends AbstractType implements FormTypeInterface
                 'label' => 'Quel est votre pays ?'
             ])
             ->add('discount', CheckboxType::class,[
-                'label' => 'Avez-vous une réduction ?'
+                'label' => 'Êtes-vous éligible au tarif réduit ?'
             ])
         ;
     }
