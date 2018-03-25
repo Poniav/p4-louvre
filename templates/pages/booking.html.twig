@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musée du Louvre - Billetterie en ligne{% endblock %}
+{% block description %}{% endblock %}
+
+
+{% block body %}
+    {% include 'parts/header.html.twig' %}
+    {% include 'parts/jumbotron.html.twig' with {'pagetitle': 'Billetterie en ligne'} %}
+
+
+    <div class="container">
+        <div class="row">
+            {% include 'parts/column.html.twig' %}
+            <div class="col-md-8 order-md-1">
+                <h4>Vos informations</h4>
+                <hr class="mb-4">
+                {{ form_start(booking, {'attr': {'novalidate': 'novalidate'}}) }}
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        {{ form_label(booking.firstname) }}
+                        {{ form_widget(booking.firstname) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(booking.lastname) }}
+                        {{ form_widget(booking.lastname) }}
+                    </div>
+                </div>
+                <div class="form-group row mb-4">
+                        <div class="col-md-6">
+                            {{ form_label(booking.email) }}
+                            {{ form_widget(booking.email) }}
+                        </div>
+                </div>
+                <hr class="mb-4">
+                <div class="form-group row mb-4">
+                    <div class="col-md-6">
+                        {{ form_label(booking.date) }}
+                        <span class="fi-bell"></span>
+                        {{ form_widget(booking.date) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        {{ form_label(booking.type) }}
+                        {{ form_widget(booking.type) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_label(booking.number) }}
+                        {{ form_widget(booking.number) }}
+                    </div>
+                </div>
+                {{ form_rest(booking) }}
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" name="submit" type="submit">Poursuivre votre commande</button>
+                {{ form_end(booking) }}
+            </div>
+        </div>
+    </div>
+    {% include 'parts/footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('/lib/js/bootstrap-datepicker.min.js') }}"></script>
+{% endblock %}

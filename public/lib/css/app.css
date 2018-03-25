@@ -1,0 +1,232 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.jumbotron {
+    background-image: url("/lib/img/louvre3.jpg");
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 50px;
+    border-radius: unset;
+}
+
+/* Jumbotron moving with mouseover */
+/*.jumbotron {
+    background-image: url("/lib/img/louvre3.jpg");
+    background-position: -200px -190px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    !*background-position: -25px -50px;*!
+    !*background-position: center center;*!
+    position: relative;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top: 50px;
+    border-radius: unset;
+}*/
+
+.jumbotron h1 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 1.4em;
+    margin-bottom: 0em;
+    background: #fff;
+    color: #000;
+    display: inline-block;
+    padding: 10px 15px;
+    position: relative;
+}
+.jumbotron h1:before { content: ""; position: absolute; top: 0;
+    width: 0;
+    height: 0;
+    border-style: solid; right: -10px;
+    border-width: 47px 10px 0 0;
+    border-color: #ffffff transparent transparent transparent;
+}
+
+
+.navbar-brand, .navbar-nav>li>a {
+    text-shadow: none!important;
+}
+
+a.nav-link {
+    text-transform: uppercase;
+    font-size: 13px;
+    padding-bottom: 10px;
+    letter-spacing: 0.6px;
+}
+a.navbar-brand {
+    text-transform: uppercase;
+    font-weight: 100;
+    font-size: 17px;
+}
+
+h4 {
+    font-size: 1.3rem;
+    font-family: 'Roboto';
+    font-weight: 400;
+}
+
+footer {
+    background: #efefef;
+    font-size: 15px;
+}
+
+footer a {
+    color: #000;
+}
+
+footer a:hover {
+    text-decoration: none;
+    color: #232323;
+}
+
+.infos h3 {
+    font-size: 1.1em;
+}
+
+#back-to-top {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 30px;
+    background: #f5f5f5;
+    color: #444;
+    cursor: pointer;
+    border: 0;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: opacity 0.2s ease-out;
+    opacity: 0;
+}
+#back-to-top:hover {
+    background: #e9ebec;
+}
+#back-to-top.show {
+    opacity: 1;
+}
+
+h4.title-ticket {
+    background: #f5f5f5;
+    padding: 10px;
+    color: #1e1410;
+    font-weight: 400;
+    font-size: 1.1em;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+a.button-back {
+    text-decoration-line: none;
+}
+
+/**
+ * The CSS shown here will not be introduced in the Quickstart guide, but shows
+ * how you can use CSS to style your Element's container.
+ */
+.StripeElement {
+    background-color: white;
+    height: 40px;
+    padding: 10px 12px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+    border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+}
+
+div#card-errors {
+    color: #eb1c26;
+    margin: 5px;
+}
+
+form#payment-form label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    color: #495c69;
+    font-size: 0.9em;
+}
+
+.table-checkout {
+    padding: 20px 30px 30px;
+    border-radius: 4px;
+    border: 1px solid #e8e8fb;
+    background: #f8fbfd;
+    margin-bottom: 0;
+    font-size: 0.96em;
+}
+
+.form-checkout {
+    padding: 20px 30px 30px;
+    border-radius: 4px;
+    border: 1px solid #e8e8fb;
+    background: #f8fbfd;
+}
+
+.title-checkout {
+    margin: 15px 0;
+    color: #32325d;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+tfoot {
+    background: #fff;
+}
+
+.form-group.foottable {
+    padding: .75rem;
+    vertical-align: top;
+    border: 1px #dee2e6 solid;
+    border-top: none;
+}
+
+.foottable strong {
+    font-weight: 500;
+    font-size: 0.90em;
+}
+
+.foottable.row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgb(244, 246, 247);
+}
+
+.foottable span {
+    margin-left: 20px;
+}
+
+.infos-block a:hover {
+    text-decoration: none!important;
+}
+
+button.btn.btn-outline-warning.btn-block.btn-infos {
+    font-weight: 500;
+    font-size: 0.80em;
+    margin-top: 10px;
+}

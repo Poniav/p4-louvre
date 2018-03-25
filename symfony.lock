@@ -56,8 +56,14 @@
     "doctrine/orm": {
         "version": "v2.6.0"
     },
+    "egulias/email-validator": {
+        "version": "2.1.3"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
+    },
+    "nikic/php-parser": {
+        "version": "v4.0.0"
     },
     "ocramius/package-versions": {
         "version": "1.3.0"
@@ -86,8 +92,17 @@
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
     },
+    "stripe/stripe-php": {
+        "version": "v6.4.2"
+    },
+    "swiftmailer/swiftmailer": {
+        "version": "v6.0.2"
+    },
     "symfony/asset": {
         "version": "v4.0.4"
+    },
+    "symfony/browser-kit": {
+        "version": "v4.0.6"
     },
     "symfony/cache": {
         "version": "v4.0.4"
@@ -104,6 +119,9 @@
             "ref": "9f94d3ea453cd8a3b95db7f82592d7344fe3a76a"
         }
     },
+    "symfony/css-selector": {
+        "version": "v4.0.6"
+    },
     "symfony/debug": {
         "version": "v4.0.4"
     },
@@ -112,6 +130,9 @@
     },
     "symfony/doctrine-bridge": {
         "version": "v4.0.4"
+    },
+    "symfony/dom-crawler": {
+        "version": "v4.0.6"
     },
     "symfony/dotenv": {
         "version": "v4.0.4"
@@ -176,6 +197,15 @@
     "symfony/orm-pack": {
         "version": "v1.0.5"
     },
+    "symfony/phpunit-bridge": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "179470cb6492db92dffee208cfdb436f175c93b4"
+        }
+    },
     "symfony/polyfill-intl-icu": {
         "version": "v1.7.0"
     },
@@ -202,6 +232,15 @@
     },
     "symfony/stopwatch": {
         "version": "v4.0.4"
+    },
+    "symfony/swiftmailer-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "3db029c03e452b4a23f7fc45cec7c922c2247eb8"
+        }
     },
     "symfony/translation": {
         "version": "3.3",

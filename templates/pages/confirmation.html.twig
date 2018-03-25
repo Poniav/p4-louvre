@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musée du Louvre - Confirmation{% endblock %}
+{% block description %}{% endblock %}
+
+
+{% block body %}
+    {% include 'parts/header.html.twig' %}
+    {% include 'parts/jumbotron.html.twig' with {'pagetitle': 'Contactez-nous'} %}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 order-md-1">
+                <h4 class="text-center">Confirmation de commande</h4>
+                <hr class="mb-4">
+                <p class="text-center">Merci de votre commande sur le Musée du Louvre.</p>
+                <p class="text-center">Nous confirmons avoir bien reçu votre commande N°{{ booking.code }}. </p>
+                <p class="text-center">Vous allez recevoir un mail de confirmation avec vos tickets.</p>
+                <div class="row justify-content-md-center">
+                    <div class="col-lg-5">
+                        <a href="/"><button class="btn btn-primary btn-md btn-block" name="submit" type="submit">Retour à l'accueil</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'parts/footer.html.twig' %}
+{% endblock %}

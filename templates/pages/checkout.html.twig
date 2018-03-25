@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musée du Louvre - Billetterie en ligne{% endblock %}
+{% block description %}{% endblock %}
+
+
+{% block body %}
+    {% include 'parts/header.html.twig' %}
+    {% include 'parts/jumbotron.html.twig' with {'pagetitle': 'Paiement en ligne'} %}
+
+
+    <div class="container">
+        <div class="row">
+            {% include 'parts/column-infos.html.twig' %}
+            <div class="col-md-8 order-md-1">
+                <h4>Récapitulatif</h4>
+                <hr class="mb-4">
+                <h4 class="mb-4 title-checkout">Votre panier <span class="float-right"> Commande N°{{ booking.code }}</span></h4>
+                    <table class="table table-checkout table-hover">
+                        <tbody>
+                        {% for tickets in booking.tickets %}
+                        <tr>
+                            <td>1</td>
+                            <td>{{ tickets.firstname }} {{ tickets.lastname }}</td>
+                            <td>{% if booking.type == 1 %} Jour {% else %} Demi-journée {% endif %}</td>
+                            <td>{{ tickets.price }}€</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                <div class="form-group foottable row">
+                    <div class="offset-md-7 col-md-5"><strong>Montant de votre commande <span>{{ booking.total }}€</span></strong></div>
+                </div>
+                {#<hr class="mb-4">#}
+                <h4 class="mb-4 mt-5 title-checkout">Paiement de votre commande <span class="float-right"><i class="fab fa-cc-stripe fa-2x mr-1"></i><i class="fab fa-cc-visa fa-2x mr-1"></i><i class="fab fa-cc-mastercard fa-2x"></i></span></h4>
+                {% for message in app.flashes('error') %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                <form action="#" method="post" id="payment-form">
+                    <div class="form-checkout">
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="Numéro de carte">Numéro de carte</label>
+                            <div id="cc-name"></div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="Expiration">Expiration</label>
+                            <div id="cc-expiry"></div>
+                        </div>
+                </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label for="Expiration">Code de carte</label>
+                            <div id="cc-ccv"></div>
+                        </div>
+                </div>
+                    </div>
+                    <div id="card-errors" class="text-center"></div>
+                <hr class="mb-4">
+                <button class="btn btn-primary btn-lg btn-block" type="submit">Payer votre commande</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'parts/footer.html.twig' %}
+{% endblock %}
+
+{% block javascripts %}
+            <script src="https://js.stripe.com/v3/"></script>
+            <script>
+                var stripekey = '{{ stripepukey }}';
+            </script>
+            <script type="text/javascript" src="{{ asset('/lib/js/stripe.js') }}"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/brands.js" integrity="sha384-sCI3dTBIJuqT6AwL++zH7qL8ZdKaHpxU43dDt9SyOzimtQ9eyRhkG3B7KMl6AO19" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+{% endblock %}

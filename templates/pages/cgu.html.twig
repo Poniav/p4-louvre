@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musée du Louvre - Conditions générales d'utilisation{% endblock %}
+{% block description %}{% endblock %}
+
+
+{% block body %}
+    {% include 'parts/header.html.twig' %}
+    {% include 'parts/jumbotron.html.twig' with {'pagetitle': 'Conditions générales d\'utilisation'} %}
+
+
+    <div class="container infos">
+        <div class="row">
+            {% include 'parts/column.html.twig' %}
+            <div class="col-md-8 order-md-1">
+                <h3>Objet</h3>
+                <hr class="mb-4">
+                <p class="small text-muted">Les présentes Conditions Générales ont pour objet de définir les modalités de mise à
+                    disposition des services du site museedulouvre.com, ci-après nommé « le Service » et les
+                    conditions d'utilisation du Service par l'Utilisateur. Tout accès et/ou Utilisation du site
+                    museedulouvre.com suppose l'acceptation et le respect de l'ensemble des termes des
+                    présentes Conditions et leur acceptation inconditionnelle. Elles constituent donc un contrat
+                    entre le Service et l'Utilisateur. Dans le cas où l'Utilisateur ne souhaite pas accepter tout ou
+                    partie des présentes conditions générales, il lui est demandé de renoncer à tout usage du
+                    Service.
+                </p>
+                <h3 class="mt-4">Mentions légales</h3>
+                <hr class="mb-4">
+                <p class="small text-muted">Le site du Musée du Louvre est édité par :<br><br>
+                    Musée du Louvre<br>
+                    Rue de Rivoli<br>
+                    75001 Paris<br>
+                    Tél: +33 1 47 14 10 28<br>
+                </p>
+                <h3 class="mt-4">Accès au service</h3>
+                <hr class="mb-4">
+                <p class="small text-muted">Le Service est accessible gratuitement à tout Utilisateur disposant d'un accès à internet. Tous les coûts afférents à l'accès au Service, que ce soient les frais matériels, logiciels ou d'accès à internet sont exclusivement à la charge de l'utilisateur. Il est seul responsable du bon fonctionnement de son équipement informatique ainsi que de son accès à internet.
+                    Museedulouvre.com se réserve le droit de refuser l'accès au Service, unilatéralement et sans notification préalable, à tout Utilisateur ne respectant pas les présentes conditions d'utilisation.
+
+                    Quidéa met en oeuvre tous les moyens raisonnables à sa disposition pour assurer un accès de qualité au Service, mais n'est tenu à aucune obligation d'y parvenir.
+
+                    Quidéa ne peut, en outre, être tenue responsable de tout dysfonctionnement du réseau ou des serveurs ou de tout autre événement échappant au contrôle raisonnable, qui empêcherait ou dégraderait l'accès au Service.
+
+                    Quidéa se réserve la possibilité d'interrompre, de suspendre momentanément ou de modifier sans préavis
+                    l'accès à tout ou partie du Service, afin d'en assurer la maintenance, ou pour toute autre raison, sans que l'interruption n'ouvre droit à aucune obligation ni indemnisation.
+                </p>
+                <h3 class="mt-4">Liens hypertextes</h3>
+                <hr class="mb-4">
+                <p class="small text-muted">Museedulouvre.com ne propose des liens hypertextes vers des sites web édités et/ou gérés par des tiers.<br>
+                    Dans la mesure où aucun contrôle n'est exercé sur ces ressources externes, l'Utilisateur reconnaît que Quidéa n'assume aucune responsabilité relative à la mise à disposition de ces ressources, et ne peut être tenue responsable quant à leur contenu.
+                </p>
+
+            </div>
+        </div>
+    </div>
+    {% include 'parts/footer.html.twig' %}
+
+{% endblock %}

@@ -1,0 +1,27 @@
+<header>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-warning">
+        <div class="container">
+            <a href="/"><img src="{{ asset('/lib/img/logobrand.png') }}" alt="Musée du Louvre France"></a>
+            <a class="navbar-brand ml-2" href="/">Musée du Louvre</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item {{ app.request.get('_route') == 'app_booking' ? 'active' }}">
+                            <a class="nav-link" href="/">Billetterie <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item {{ app.request.get('_route') == 'app_contact' ? 'active' }}">
+                            <a class="nav-link" href="contact">Contact</a>
+                        </li>
+                        <li class="nav-item {{ app.request.get('_route') == 'app_cgu' ? 'active' }}">
+                            <a class="nav-link" href="/cgu">CGU</a>
+                        </li>
+                        <li class="nav-item {{ app.request.get('_route') == 'app_cgv' ? 'active' }}">
+                            <a class="nav-link" href="/cgv">CGV</a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+    </nav>
+</header>
