@@ -29,6 +29,7 @@ class MaxTicketValidator extends ConstraintValidator
      * If date pick is equal to specific date
      * @param Booking $booking
      * @param Constraint $constraint
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function validate($booking, Constraint $constraint)
     {
@@ -54,7 +55,6 @@ class MaxTicketValidator extends ConstraintValidator
         /* @var EntityManagerInterface | Booking */
         $result = $this->em->getRepository(Booking::class)->findNumberOfTicketsByDate($date);
         return $result;
-//        return intval($result['0']['1']);
     }
 
 }

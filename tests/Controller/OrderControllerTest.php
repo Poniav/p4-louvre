@@ -3,6 +3,7 @@
 namespace App\Tests;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OrderControllerTest extends WebTestCase
 {
@@ -29,7 +30,10 @@ class OrderControllerTest extends WebTestCase
     public function testNotFoundPages($url)
     {
         $client = static::createClient();
+
         $client->request('GET', $url);
+
+//        $this->expectException(NotFoundHttpException::class);
 
         $this->assertTrue($client->getResponse()->isNotFound());
     }
@@ -66,7 +70,7 @@ class OrderControllerTest extends WebTestCase
         $formBooking['booking[firstname]'] = 'Guillaume';
         $formBooking['booking[lastname]'] = 'Garcia';
         $formBooking['booking[email]'] = 'macadition@gmail.com';
-        $formBooking['booking[date]'] = '22/03/2018';
+        $formBooking['booking[date]'] = '21/03/2019';
         $formBooking['booking[type]'] = 1;
         $formBooking['booking[number]'] = 2;
 

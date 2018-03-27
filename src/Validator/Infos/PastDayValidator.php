@@ -32,7 +32,7 @@ class PastDayValidator extends ConstraintValidator
 
         /* @var PastDay $constraint  */
 
-        if($date->format('d/m/Y') < $this->date->format('d/m/Y'))
+        if($date < $this->date)
         {
             $this->context->buildViolation($constraint->message)
                           ->addViolation();
